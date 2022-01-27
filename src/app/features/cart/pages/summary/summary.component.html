@@ -1,0 +1,43 @@
+<div class="container" *ngIf="(carts| async) as cartItems ">
+    <h3 id="order-id">Order #{{cartItems.user}} ({{cartItems.user}} items)</h3>
+    <h3 id="cart-id"> Cart Id: {{idForCart.user}}</h3>
+    <div class="line-item" *ngFor="let item of cartItems.items">
+        <div id="product-details">
+            <img *ngIf="item.imagePath" class="image-xs" src="{{item.imagePath}}" alt="product photo">
+            <div *ngIf="!item.imagePath" class="image-xs no-image"></div>
+            <div id="line-details">
+                <div>{{item.title}}</div>
+                <div> {{item.price  | currency:'ZAR' }} </div>
+       
+
+            </div>
+        </div>
+        <div id="product-config">
+            <app-item-quantity [quantity]="item.qty || 0" [disabled]="true"></app-item-quantity>
+            <div class="itemTotal"> {{item.price * item.qty | currency:'ZAR'  }} </div>
+            <button mat-icon-button color="warn" (click)="deleteLineItem(item.id || '')">
+                <mat-icon>clear</mat-icon>
+        </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="costSummary">
+        <div class="costItem" >
+            <h3 class="costLabel"> </h3>
+            <p>  </p>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="costSummary">
+        <div class="costItem" id="total">
+            <h2 id="totalLabel">Total</h2>
+            <h2> {{ total }} </h2>
+        </div>
+    </div>
+    <div id="checkout-button">
+        <button color="primary" mat-flat-button (click)="checkout()">
+        <mat-icon>point_of_sale</mat-icon>
+        CHECKOUT
+    </button>
+    </div>
+</div>

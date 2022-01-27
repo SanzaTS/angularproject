@@ -1,0 +1,18 @@
+<mat-grid-list cols="{{cols}}" rowHeight="400px" gutterSize="20px" class="grid-layout">
+    <mat-grid-tile *ngFor="let products of product; trackBy: trackSkus">
+        <mat-card>
+            <img id="card-image" mat-card-image src="{{products.imagePath}}" alt="product photo">
+            <mat-card-content>
+                <mat-card-title matTooltip="{{products.title}}">{{products.title |wordWrap:35}}</mat-card-title>
+                <mat-card-subtitle>{{products.price | currency:'ZAR'}}</mat-card-subtitle>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button color="primary" [routerLink]="['/product', products._id]">
+                    View
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+<mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getNextPage($event)">
+</mat-paginator>

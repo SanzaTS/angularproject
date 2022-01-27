@@ -1,0 +1,53 @@
+<div id="container">
+
+    <div class="container" *ngIf="(carts| async) as cartItems ">
+        <h3 id="order-id">Order #{{cartItems.user}} ({{cartItems.user}} items)</h3>
+       
+        <div class="line-item" *ngFor="let item of cartItems.items">
+            <div id="product-details">
+                <img *ngIf="item.imagePath" class="image-xs" src="{{item.imagePath}}" alt="product photo">
+                <div *ngIf="!item.imagePath" class="image-xs no-image"></div>
+                <div id="line-details">
+                    <div>{{item.title}}</div>
+                    <div> {{item.price  | currency:'ZAR' }} </div>
+           
+    
+                </div>
+            </div>
+            <div id="product-config">
+                <app-item-quantity [quantity]="item.qty || 0" [disabled]="true"></app-item-quantity>
+                <div class="itemTotal"> {{item.price * item.qty | currency:'ZAR'  }} </div>
+
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="costSummary">
+            <div class="costItem" >
+                <h3 class="costLabel"> </h3>
+                <p>  </p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="costSummary">
+            <div class="costItem" id="total">
+                <h2 id="totalLabel">Total</h2>
+                <h2> {{total }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <app-title no="1" title="Order" subtitle="Shipping address"></app-title>
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput #message   maxlength="256" [formControl]="email" required>
+            <!--<mat-icon matPrefix>alternate_email</mat-icon> -->
+            <mat-hint align="start"><strong>Ensure you enter the correct address</strong> </mat-hint>
+            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+        </mat-form-field>
+        <button mat-flat-button color="primary" [disabled]="email.invalid" (click)="addCustomerEmail()">
+            Submit Order
+        </button>
+    </form>
+</div>
