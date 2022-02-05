@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorHandlerService } from 'src/app/shared/services/http-error-handler.service';
 import { Cart } from '../models/cart.model';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -12,7 +13,8 @@ import { Cart } from '../models/cart.model';
 }) 
 export class CartService {
 
-  private url: string = 'http://localhost:9000/cart';
+  private url: string =  `${environment.apiUrl}/cart`;
+ 
 
   constructor(private http: HttpClient, private eh: HttpErrorHandlerService) { }
 

@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Product } from '../models/product.model';
 import { HttpErrorHandlerService } from 'src/app/shared/services/http-error-handler.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private url: string = 'http://localhost:9000/products';
+  private url: string = `${environment.apiUrl}/products`;
 
   constructor(private http: HttpClient,private eh:HttpErrorHandlerService) { }
 

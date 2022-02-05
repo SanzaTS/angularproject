@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorHandlerService } from 'src/app/shared/services/http-error-handler.service';
+import { environment } from 'src/environments/environment';
 
 import { Order } from '../models/order.model';
 
@@ -12,8 +13,8 @@ import { Order } from '../models/order.model';
 })
 export class OrderService {
 
-  private url: string = 'http://localhost:9000/order';
-
+  private url: string = `${environment.apiUrl}/order`;
+  
   constructor(  
       private http: HttpClient,
     private eh: HttpErrorHandlerService) { }
